@@ -1,0 +1,28 @@
+@import 'node_modules/carbon-components/scss/components/structured-list/_structured-list.scss';
+
+
+
+.kiosk-list-name {
+	width: 60%;
+}
+
+.kiosk-list-created {
+	width: 10%;
+}
+
+.kiosk-list-pages {
+	width: 10%;
+}
+
+.kiosk-list-actions {
+	width: 20%;
+}
+
+.kiosk-list-item .kiosk-list-actions a {
+	display: none;
+}
+
+.kiosk-list-item:hover .kiosk-list-actions a {
+	display: inline-block;
+	padding-right: 16px;
+}
