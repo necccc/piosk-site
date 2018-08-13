@@ -1,0 +1,63 @@
+const fetch = require('isomorphic-unfetch')
+
+module.exports = async (req, res) => {
+	if (req.query.state !== process.env.PIOSK_NONCE) {
+		res.sendStatus(401);
+	}
+
+	const data = {
+		client_id: process.env.GH_OAUTH_CLIENT_ID,
+		client_secret: process.env.GH_OAUTH_CLIENT_SECRET,
+		code: req.query.code,
+		redirect_uri: process.env.GH_REDIRECT_URI,
+		state: process.env.PIOSK_NONCE,
+	}
+
+	const token = await fetch('https://github.com/login/oauth/access_token', {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(data)
+	})
+	.then(response => response.json())
+	.catch(e => {
+		console.error(e)
+		res.sendStatus(500);
+	})
+
+	const {
+		access_token,
+  		token_type,
+		scope
+	} = token
+
+	const userData = await fetch('https://api.github.com/user/emails', {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/vnd.github.v3+json',
+			'Content-Type': 'application/json',
+			'Authorization': 'token ' + access_token
+		}
+	})
+	.then(response => response.json())
+	.catch(e => {
+		console.error(e)
+		res.sendStatus(500);
+	})
+
+	const primaryMail = userData.filter(entry => entry.primary).reduce((str, entry) => entry.email,'')
+
+	console.log(access_token);
+	console.log(primaryMail);
+
+	// create user with access token
+	// get jwt
+	// redirect to client page
+
+	res
+		.cookie('access_token', access_token, { expires: new Date(Date.now() + 900000) })
+		.cookie('mail', primaryMail)
+		.redirect('/client/create')
+}

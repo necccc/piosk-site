@@ -11,7 +11,6 @@ class Client extends React.Component {
 
 	onSubmit (e) {
 		console.log(e);
-
 	}
 
 	componentDidMount() {
@@ -25,19 +24,18 @@ class Client extends React.Component {
 		const { id , created_at, kiosks } = this.props
 
 		return <Layout>
-
-			<h1>Hello {id}!</h1>
-
-			<KioskList kiosks={ kiosks } />
-
-			<Link href="/kiosk">
-				<Button>Create new kiosk</Button>
-			</Link>
-
+			<h1>Almost there!</h1>
 		</Layout>
 	}
+
+	static async getInitialProps({ req }) {
+
+		console.log(req.headers);
+
+		console.log(req.query);
+
+		return { }
+	  }
 }
-
-
 
 export default withAuth(withRedux(Client))

@@ -2,10 +2,8 @@ import React from 'react'
 import withRedux from './state'
 import withAuth, { createClient, setSecret } from '../../store/auth'
 import Layout from '../../layouts/Default'
-import { Button } from 'carbon-components-react'
 import styles from './styles.scss'
-import Login from '../../components/Login'
-import Register from '../../components/Register'
+import GithubLogin from '../../components/GithubLogin'
 import Router from 'next/router'
 
 class Index extends React.Component {
@@ -30,9 +28,7 @@ class Index extends React.Component {
 
 		<div>
 
-			<Register onSubmit={e => this.onSubmit(e)} />
-
-			<Login onSubmit={e => this.onSubmit(e)} />
+			<GithubLogin>Login with GitHub</GithubLogin>
 
 		</div>
 

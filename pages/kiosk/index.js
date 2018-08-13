@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../../layouts/Default'
-import withRedux from './state'
-import withAuth, { fetchClient } from '../../store/auth'
+import withRedux, { pushKiosk } from './state'
+import withAuth from '../../store/auth'
 import KioskPageEntry from '../../components/KioskPageEntry'
 import { ModalWrapper, TextInput, Form, FormGroup } from 'carbon-components-react'
 import { Button } from 'carbon-components-react'
@@ -26,10 +26,6 @@ class Kiosk extends React.Component {
 
 	onNameUpdate($elem) {
 		const value = $elem.target.value
-
-console.log(value);
-
-
 		this.setState({name: value})
 	}
 
@@ -55,6 +51,10 @@ console.log(value);
 
 	onSave() {
 		console.log(this.state);
+		console.log(this.props);
+
+		this.props.pushKiosk(this.state, this.props.token)
+
 	}
 
 	static getDerivedStateFromProps(props, state) {

@@ -21,7 +21,7 @@ class KioskListItem extends React.Component {
 						{name}
 					</StructuredListCell>
 					<StructuredListCell className="kiosk-list-pages">
-						{pages}
+						{pages.length}
 					</StructuredListCell>
 					<StructuredListCell className="kiosk-list-actions">
 						<Link>

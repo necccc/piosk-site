@@ -70,13 +70,13 @@ export const createClient = (secret) => async (dispatch) => {
 	dispatch(receiveClientId(id))
 }
 
-export const requestApi = action('requestClient', (state) => ({
+export const requestApi = action('requestApi', (state) => ({
 		...state,
 		isFetching: true,
 	})
 )
 
-export const receiveClientId = action('receiveClient', (state, id) => ({
+export const receiveClientId = action('receiveClientId', (state, id) => ({
 		...state,
 		id,
 		token: getToken({...state, id}),

@@ -10,6 +10,13 @@ class Register extends React.Component {
 		this.setState({secret})
 
 
+// scope=read:user
+// state=randomscting
+//  code in a code parameter as well as the state you provided in the previous step in a state
+
+// /Exchange this code for an access token:
+// POST https://github.com/login/oauth/access_token
+//https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
 
 	}
 

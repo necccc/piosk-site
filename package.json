@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "export NODE_ENV='development' ; npx next",
+    "dev": "export NODE_ENV='development' ; node index.js",
     "clean": "rm -rf .next",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/necccc/piosk-site.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/necccc/piosk-site/issues"
   },
@@ -25,6 +25,7 @@
     "carbon-components-react": "6.20.0",
     "carbon-icons": "7.0.7",
     "dotenv": "6.0.0",
+    "express": "4.16.3",
     "fast-redux": "0.7.1",
     "isomorphic-unfetch": "2.1.1",
     "jsrsasign": "8.0.12",
@@ -37,6 +38,7 @@
     "react-redux": "5.0.7",
     "redux": "4.0.0",
     "redux-devtools-extension": "2.13.5",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "uuid": "3.3.2"
   }
 }
