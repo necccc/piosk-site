@@ -47,17 +47,29 @@ module.exports = async (req, res) => {
 		res.sendStatus(500);
 	})
 
-	const primaryMail = userData.filter(entry => entry.primary).reduce((str, entry) => entry.email,'')
-
-	console.log(access_token);
-	console.log(primaryMail);
+	if (!userData) {
+		return res.sendStatus(403);
+	}
 
 	// create user with access token
 	// get jwt
 	// redirect to client page
+	const APIresponse = await fetch(`${process.env.API_URL}/v1/client`, {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ token: access_token })
+	}).then(response => response.json())
+	.catch(e => {
+		console.error(e)
+		res.sendStatus(500);
+	})
+
+	const { jwt } = APIresponse
 
 	res
-		.cookie('access_token', access_token, { expires: new Date(Date.now() + 900000) })
-		.cookie('mail', primaryMail)
-		.redirect('/client/create')
+		.cookie('access_token', access_token, { expires: new Date(Date.now() + 96000000) })
+		.redirect(`/client?jwt=${jwt}`)
 }

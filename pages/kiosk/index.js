@@ -2,10 +2,10 @@ import React from 'react'
 import Layout from '../../layouts/Default'
 import withRedux, { pushKiosk } from './state'
 import withAuth from '../../store/auth'
+import Authenticated from '../../components/Authenticated'
 import KioskPageEntry from '../../components/KioskPageEntry'
 import { ModalWrapper, TextInput, Form, FormGroup } from 'carbon-components-react'
 import { Button } from 'carbon-components-react'
-
 import styles from './styles.scss'
 
 class Kiosk extends React.Component {
@@ -120,4 +120,4 @@ class Kiosk extends React.Component {
 	}
 }
 
-export default withAuth(withRedux(Kiosk))
+export default Authenticated(withAuth(withRedux(Kiosk)))

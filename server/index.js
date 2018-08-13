@@ -1,8 +1,11 @@
 const next = require('next')
 const express = require('express')
-const router = require('./router');
+const cookieParser = require('cookie-parser')
+const router = require('./router')
 const errorHandler = require('./errorHandler')
 const oauthHandler = require('./oauthHandler')
+const authPersistHandler = require('./authPersistHandler')
+
 const dev = process.env.NODE_ENV !== 'production'
 
 module.exports = function (getRoutes, config) {
@@ -16,17 +19,22 @@ module.exports = function (getRoutes, config) {
 			.then(() => {
 				const server = express()
 				const routes = router(app, getRoutes)
-
+				server.use(cookieParser())
 				server.nextConfig = app.nextConfig
+
 				return server
 			})
 	}
 
 	const attachNextRoutes = (server) => {
 		const routes = router(app, getRoutes)
+
+
 		server.use('/', routes)
+
 		server.get('/oauth', (req, res) => oauthHandler(req, res))
 		server.get('*', (req, res) => handle(req, res))
+
 		return server
 	}
 

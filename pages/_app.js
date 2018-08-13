@@ -22,6 +22,6 @@ class MyApp extends App {
 	  </Container>
 	}
 
-  }
+}
 
 export default wrapWithStore(MyApp)
