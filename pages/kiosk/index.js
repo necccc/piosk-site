@@ -1,27 +1,21 @@
 import React from 'react'
 import Layout from '../../layouts/Default'
 import withRedux, { pushKiosk } from './state'
-import withAuth from '../../store/auth'
 import Authenticated from '../../components/Authenticated'
 import KioskPageEntry from '../../components/KioskPageEntry'
-import { ModalWrapper, TextInput, Form, FormGroup } from 'carbon-components-react'
+import { TextInput, FormGroup } from 'carbon-components-react'
 import { Button } from 'carbon-components-react'
+
 import styles from './styles.scss'
 
 class Kiosk extends React.Component {
 
-	static getEmptyPage() {
+	static getEmptyPage(temporaryID) {
 		return {
-			id: (~(Math.random() * -100000)).toString(16),
+			id: `Kiosk${temporaryID}`,
 			url: ' ',
 			time: 30
 		}
-	}
-
-	componentDidMount() {
-		//this.props.fetchClient(this.props.token)
-
-		return {}
 	}
 
 	onNameUpdate($elem) {
@@ -31,7 +25,7 @@ class Kiosk extends React.Component {
 
 	addPageEntry() {
 		const pages = this.state.pages.slice()
-		pages.push(Kiosk.getEmptyPage())
+		pages.push(Kiosk.getEmptyPage(pages.length + 1))
 		this.setState({pages})
 	}
 
@@ -54,25 +48,22 @@ class Kiosk extends React.Component {
 		console.log(this.props);
 
 		this.props.pushKiosk(this.state, this.props.token)
-
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		console.log('Kiosk, getDerivedStateFromProps', props, state);
-
-		if (state && state.pages) {
-			return state
+	componentDidMount() {
+		if (pages.length < 1) {
+			pages.push(Kiosk.getEmptyPage(1))
 		}
+	}
 
-		return {
-			name: '',
-			pages: [
-				Kiosk.getEmptyPage()
-			]
-		}
+	static getDerivedStateFromProps() {
+		return {}
 	}
 
 	render() {
+
+		const pages = this.props.pages.slice()
+
 
 		return <Layout>
 
@@ -90,9 +81,11 @@ class Kiosk extends React.Component {
 				</FormGroup>
 			</div>
 
-			{this.state.pages.map((page, i) => <KioskPageEntry
-				key={`PageEntry_${page.id}`}
-				page={page}
+			{pages.map(({ id, url, time }, i) => <KioskPageEntry
+				id={id}
+				url={url}
+				time={time}
+				key={`PageEntry_${id}`}
 				index={i}
 				onUpdate={data => this.onPageUpdate(data)}
 				onRemove={id => this.removePageEntry(id)}
@@ -120,4 +113,4 @@ class Kiosk extends React.Component {
 	}
 }
 
-export default Authenticated(withAuth(withRedux(Kiosk)))
+export default Authenticated(withRedux(Kiosk))

@@ -10,16 +10,6 @@ class KioskPageEntry extends React.Component {
 	
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		if (state) return state
-
-		return {
-			id: props.page.id,
-			url: props.page.url,
-			time: props.page.time
-		}
-	}
-
 	onChange(key, $elem) {
 		const value = $elem.target.value
 		const state = Object.assign({}, this.state)
@@ -31,8 +21,8 @@ class KioskPageEntry extends React.Component {
 	}
 
 	render() {
-		const { index } = this.props
-		const { id, url, time } = this.state
+		const { index, id, url, time } = this.props
+
 
 		return <FormGroup legendText="" >
 				<div className="bx--row">

@@ -5,7 +5,7 @@ import Authenticated from '../../components/Authenticated'
 import KioskList from '../../components/KioskList'
 import withAuth, { setToken } from '../../store/auth'
 import { Button } from 'carbon-components-react'
-import Link from 'next/link'
+import Link from '../../components/Link'
 import styles from './styles.scss'
 class Client extends React.Component {
 
@@ -27,7 +27,7 @@ console.log(this.props);
 
 			<KioskList kiosks={ kiosks } />
 
-			<Link href="/kiosk">
+			<Link to="kiosk">
 				<Button>Create new kiosk</Button>
 			</Link>
 

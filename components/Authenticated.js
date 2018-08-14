@@ -15,8 +15,6 @@ export default function (Component) {
 			const { req, store } = ctx
 			let pageProps = (Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
 
-
-
 			if (req && req.cookies && req.cookies.access_token) {
 
 				const { jwt } = await fetch(`${api_url}/v1/token`, {
@@ -41,7 +39,7 @@ export default function (Component) {
 			return pageProps
 
 		}
-
+		
 		componentDidMount () {
         	console.log('checking auth', this.props)
 
