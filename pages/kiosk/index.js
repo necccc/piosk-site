@@ -51,19 +51,19 @@ class Kiosk extends React.Component {
 	}
 
 	componentDidMount() {
+		const pages = this.props.pages
+
 		if (pages.length < 1) {
 			pages.push(Kiosk.getEmptyPage(1))
 		}
-	}
 
-	static getDerivedStateFromProps() {
-		return {}
+		this.setState({
+			pages
+		})
 	}
 
 	render() {
-
-		const pages = this.props.pages.slice()
-
+		const pages = this.state ? this.state.pages : [Kiosk.getEmptyPage(1)]
 
 		return <Layout>
 
@@ -108,7 +108,6 @@ class Kiosk extends React.Component {
 					</Button>
 				</div>
 			</FormGroup>
-
 		</Layout>
 	}
 }

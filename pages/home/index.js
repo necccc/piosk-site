@@ -12,8 +12,6 @@ class Index extends React.Component {
 
 	render() {
 
-		console.log(this.props);
-
 		return <Layout>
 
 		Piosk!
@@ -21,7 +19,11 @@ class Index extends React.Component {
 		<div>
 
 		 {(this.props.token) ? (
-			<Link to="client">See your Kiosks</Link>
+			<Link to="client">
+				<a>
+					See your Kiosks
+				</a>
+			</Link>
 		 ) : (
 			<GithubLogin>Login with GitHub</GithubLogin>
 		 )}
@@ -34,11 +36,6 @@ class Index extends React.Component {
 
 
 	static getInitialProps({ req, store }) {
-
-		//console.log('getInitialProps', req.auth);
-		//console.log('getInitialProps', store.getState());
-
-
 
 		return {}
 	}

@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser')
 const router = require('./router')
 const errorHandler = require('./errorHandler')
 const oauthHandler = require('./oauthHandler')
-const authPersistHandler = require('./authPersistHandler')
 
 const dev = process.env.NODE_ENV !== 'production'
 

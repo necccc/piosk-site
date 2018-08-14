@@ -1,6 +1,6 @@
 import ReduxComposeFactory, { createState } from '../../store'
-import { requestApi } from '../../store/auth'
 import { receiveKioskData } from '../client/state'
+import Router from 'next/router'
 import getConfig from 'next/config'
 
 const { publicRuntimeConfig: { api_url } } = getConfig()
@@ -12,12 +12,28 @@ const DEFAULT_STATE = {
 
 const { action, getState } = createState('kiosk', DEFAULT_STATE)
 
-//const normalizeKioskData =
+export const fetchKiosk = (kioskUrl) => async (dispatch) => {
 
+	console.log('fetch kiosk data', kioskUrl);
+
+	const kioskData = await fetch(`${api_url}${kioskUrl}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': token
+		}
+	})
+	.then(response => response.json())
+	.catch(e => console.error(e))
+
+	const { kiosk } = kioskData
+
+	dispatch(receiveKioskData(kiosk))
+}
 
 export const pushKiosk = (kiosk, token) => async (dispatch) => {
 
-	dispatch(requestApi())
+	//dispatch(requestApi())
 
 	const data = Object.assign({}, kiosk)
 
@@ -39,7 +55,11 @@ export const pushKiosk = (kiosk, token) => async (dispatch) => {
 	kiosk.id = id
 
 	dispatch(receiveKioskData(kiosk))
+
+	Router.push('/client')
+
 }
 
 
-export default ReduxComposeFactory({ pushKiosk }, getState)
+
+export default ReduxComposeFactory({ pushKiosk, fetchKiosk }, getState)

@@ -14,12 +14,19 @@ class Client extends React.Component {
 
 	}
 
+	componentDidMount() {
+		console.log('Client componentDidMount', this.props);
+
+		const {id, token } = this.props
+		this.props.fetchClientKiosks(id, token)
+	}
+
 	render() {
 
-console.log(this.props);
 
 
 		const { id , created_at, kiosks } = this.props
+		console.log(kiosks);
 
 		return <Layout>
 
@@ -35,14 +42,16 @@ console.log(this.props);
 	}
 
 	static getInitialProps({ req, store }) {
+
 		if (req && req.query.jwt) {
 			store.dispatch(setToken(req.query.jwt))
-
 			const { auth: { id, token }} = store.getState()
 
 			fetchClient(id, token)
 			fetchClientKiosks(id, token)
 		}
+
+		//console.log(store.getState());
 
 		return {}
 	}

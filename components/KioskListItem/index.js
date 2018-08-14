@@ -13,9 +13,9 @@ class KioskListItem extends React.Component {
 
 		const { id, created_at, name, pages } = this.props
 
-		return <StructuredListRow key={id} className="kiosk-list-item">
+		return <StructuredListRow className="kiosk-list-item">
 					<StructuredListCell className="kiosk-list-created">
-						{moment(created_at).format("ll")   }
+						{moment(created_at * 1000).format("ll")   }
 					</StructuredListCell>
 					<StructuredListCell className="kiosk-list-name">
 						{name}

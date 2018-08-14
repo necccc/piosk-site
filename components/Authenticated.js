@@ -17,7 +17,7 @@ export default function (Component) {
 
 			if (req && req.cookies && req.cookies.access_token) {
 
-				const { jwt } = await fetch(`${api_url}/v1/token`, {
+				const tokenResponse = await fetch(`${api_url}/v1/token`, {
 					method: 'POST',
 					headers: {
 						'Accept': 'application/json',
@@ -27,9 +27,11 @@ export default function (Component) {
 				}).then(response => response.json())
 				.catch(e => {})
 
-				console.log('Authenticated', jwt);
-//				console.log(ctx);
+				if (tokenResponse.error) {
+					return pageProps;
+				}
 
+				const { jwt } = tokenResponse
 				store.dispatch(setToken(jwt))
 
 				const { auth: { token, id }} = store.getState()
@@ -39,11 +41,9 @@ export default function (Component) {
 			return pageProps
 
 		}
-		
-		componentDidMount () {
-        	console.log('checking auth', this.props)
 
-			if (!this.props.token) {
+		componentDidMount () {
+			if (!this.props.token && Router.router.route !== '/home') {
 				Router.push('/')
 			}
 

@@ -34,7 +34,7 @@ class KioskList extends React.Component {
 				</StructuredListRow>
 			</StructuredListHead>
 			<StructuredListBody>
-			{kiosks.map(kiosk => <KioskListItem {...kiosk} />)}
+			{kiosks.map(kiosk => <KioskListItem key={kiosk.id} {...kiosk} />)}
 			</StructuredListBody>
 		</StructuredListWrapper>
 	}
