@@ -1,16 +1,18 @@
 import React from 'react'
 import withRedux from './state'
-import withAuth, { } from '../../store/auth'
+import Authenticated from '../../auth'
+
 import Layout from '../../layouts/Default'
-import styles from './styles.scss'
 import GithubLogin from '../../components/GithubLogin'
 import Link from '../../components/Link'
-import Router from 'next/router'
 
-import Authenticated from '../../components/Authenticated'
+import styles from './styles.scss'
+
 class Index extends React.Component {
 
 	render() {
+
+		console.log(this.props);
 
 		return <Layout>
 
@@ -18,7 +20,7 @@ class Index extends React.Component {
 
 		<div>
 
-		 {(this.props.token) ? (
+		 {(this.props.auth) ? (
 			<Link to="client">
 				<a>
 					See your Kiosks
@@ -35,10 +37,15 @@ class Index extends React.Component {
 	}
 
 
-	static getInitialProps({ req, store }) {
+	static getInitialProps({ req, store, auth }) {
+
+		console.log('state', store.getState());
+		console.log(auth);
 
 		return {}
 	}
+
 }
 
-export default Authenticated(withAuth(withRedux(Index)))
+
+export default Authenticated(withRedux(Index))

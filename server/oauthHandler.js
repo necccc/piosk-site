@@ -71,5 +71,5 @@ module.exports = async (req, res) => {
 
 	res
 		.cookie('access_token', access_token, { expires: new Date(Date.now() + 96000000) })
-		.redirect(`/client?jwt=${jwt}`)
+		.redirect(`/client`)
 }

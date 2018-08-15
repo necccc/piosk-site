@@ -11,8 +11,8 @@ module.exports = function (app, getRoutes) {
 
 	const routes = getRoutes()
 
-	Object.entries(routes).forEach(([path, page]) => {
-		router.get(path, (req, res) => routeHandle(req, res, app, page))
+	Object.entries(routes).forEach(([routeId, route]) => {
+		router.get(route.path, (req, res) => routeHandle(req, res, app, route.page))
 	});
 
 	return router

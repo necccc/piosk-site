@@ -3,6 +3,9 @@ import { Provider } from 'react-redux'
 import App, { Container } from 'next/app'
 import { wrapWithStore } from '../store'
 
+import { AuthContext, wrapWithAuth } from '../auth'
+
+
 class MyApp extends App {
 
 	static async getInitialProps ({Component, ctx}) {
@@ -13,15 +16,17 @@ class MyApp extends App {
 
 	render () {
 
-	  const {Component, pageProps, store} = this.props
+		const {Component, pageProps, store, auth} = this.props
 
 	  return <Container>
-			<Provider store={store}>
-				<Component {...pageProps} />
-			</Provider>
+			<AuthContext.Provider value={ auth }>
+				<Provider store={store}>
+					<Component {...pageProps} />
+				</Provider>
+			</AuthContext.Provider>
 	  </Container>
 	}
 
 }
 
-export default wrapWithStore(MyApp)
+export default wrapWithAuth(wrapWithStore(MyApp))

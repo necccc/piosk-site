@@ -1,10 +1,12 @@
 import React from 'react'
 import Layout from '../../layouts/Default'
 import withRedux, { pushKiosk } from './state'
-import Authenticated from '../../components/Authenticated'
+
 import KioskPageEntry from '../../components/KioskPageEntry'
 import { TextInput, FormGroup } from 'carbon-components-react'
 import { Button } from 'carbon-components-react'
+
+import Router from 'next/router'
 
 import styles from './styles.scss'
 
@@ -110,6 +112,24 @@ class Kiosk extends React.Component {
 			</FormGroup>
 		</Layout>
 	}
+
+	static getInitialProps({ req, store }) {
+
+		console.log(req.params);
+
+		if (req && req.params) {
+			console.log(store.getState());
+		}
+
+		//const { auth: { id, token }} = store.getState()
+
+
+//fetchKiosk(id, token)
+
+
+
+		return {}
+	}
 }
 
-export default Authenticated(withRedux(Kiosk))
+export default withRedux(Kiosk)
