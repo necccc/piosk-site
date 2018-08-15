@@ -42,6 +42,9 @@ const getToken = async function (access_token) {
 	return { token, userId }
 }
 
+export const AuthContext = React.createContext({});
+
+
 export const wrapWithAuth = (App) => {
 
 	return class WrappedApp extends Component {
@@ -65,6 +68,9 @@ export const wrapWithAuth = (App) => {
 					app.ctx.auth = auth
 					console.log('authenticate 2 - has token!');
 				}
+			} else {
+				const auth = authStore()
+				app.ctx.auth = auth
 			}
 
             if ('getInitialProps' in App) {
@@ -99,14 +105,13 @@ export const wrapWithAuth = (App) => {
 
 			console.log('authenticate 5 - render', this.auth );
 
-			return (
-				<App {...props} auth={ this.auth } />
+			return (<AuthContext.Provider value={ this.auth }>
+				<App {...props}  />
+				</AuthContext.Provider>
 			);
 		}
 	}
 }
-
-export const AuthContext = React.createContext({});
 
 export default (Comp) => {
 
