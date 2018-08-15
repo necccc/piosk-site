@@ -2,13 +2,13 @@ import React from 'react'
 import fetch from 'isomorphic-unfetch'
 import Router from 'next/router'
 import getConfig from 'next/config'
-import { setToken } from '../store/auth'
+import withAuth, { setToken } from '../store/auth'
 
 const { publicRuntimeConfig: { api_url } } = getConfig()
 
 export default function (Component) {
 
-	return class Authenticated extends React.Component {
+	class Authenticated extends React.Component {
 
 		static async getInitialProps (ctx) {
 
@@ -59,4 +59,6 @@ export default function (Component) {
 			return (<Component {...this.props} />)
 		  }
 	}
+
+	return withAuth(Authenticated)
 }

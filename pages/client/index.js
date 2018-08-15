@@ -19,7 +19,7 @@ class Client extends React.Component {
 		console.log('Client componentDidMount', this.props);
 
 		const  { id, token } = this.props
-		//this.props.fetchClientKiosks(id, token)
+		this.props.fetchClientKiosks(id, token)
 	}
 
 	render() {
@@ -45,8 +45,8 @@ class Client extends React.Component {
 
 			const { auth: { id, token }} = store.getState()
 
-			//fetchClient(id, token)
-			//fetchClientKiosks(id, token)
+			fetchClient(id, token)
+
 		}
 
 		return {}

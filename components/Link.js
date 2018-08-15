@@ -13,7 +13,7 @@ export default (props) => (<Route.Consumer>
 			to
 		} = props
 
-		let urlParams = to.match(/:[\w-_]*/ig)
+		let urlParams = routes[to].path.match(/:[\w-_]*/ig)
 		let propParams = []
 		let as = to
 		let href = `/${routes[to].page}`
@@ -31,23 +31,18 @@ export default (props) => (<Route.Consumer>
 			propParams = urlParams.map(str => str.replace(':', ''))
 		}
 
-console.log('Link href', href);
-
-
 		if (propParams.length > 0) {
 			as = urlParams.reduce((url, param, index)=> {
 				url = url.replace(param, props[[propParams[index]]])
 				return url
-			}, to)
-
+			}, routes[to].path)
 
 			href = urlParams.reduce((url, param, index)=> {
 				const amp = url[url.length - 1] === '?' ? '' : '&'
 				url += `${amp}${propParams[index]}=${props[[propParams[index]]]}`
 				return url
-			}, `/${href}?`)
+			}, `${href}?`)
 		}
-console.log('Link data', {as, href });
 
 		linkProps.as = as
 		linkProps.href = href
@@ -55,7 +50,6 @@ console.log('Link data', {as, href });
 		return (<Link {...linkProps} >
 			{props.children}
 		</Link>)
-
 	}}
 	</Route.Consumer>
 )
