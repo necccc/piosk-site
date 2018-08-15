@@ -1,7 +1,8 @@
 import React from 'react'
-import Layout from '../../layouts/Default'
-import withRedux, { pushKiosk } from './state'
+import withRedux, { getKioskUrlByID, fetchKioskData, loadKioskData } from './state'
+import Authenticated from '../../auth'
 
+import Layout from '../../layouts/Default'
 import KioskPageEntry from '../../components/KioskPageEntry'
 import { TextInput, FormGroup } from 'carbon-components-react'
 import { Button } from 'carbon-components-react'
@@ -49,23 +50,25 @@ class Kiosk extends React.Component {
 		console.log(this.state);
 		console.log(this.props);
 
-		this.props.pushKiosk(this.state, this.props.token)
+		this.props.pushKiosk(this.state, this.props.auth.token)
 	}
 
 	componentDidMount() {
-		const pages = this.props.pages
 
-		if (pages.length < 1) {
-			pages.push(Kiosk.getEmptyPage(1))
+
+		const state = {
+			name: this.props.name,
+			pages: this.props.pages
 		}
-
-		this.setState({
-			pages
-		})
+//console.log(this.props);
+		this.setState(state)
 	}
 
 	render() {
-		const pages = this.state ? this.state.pages : [Kiosk.getEmptyPage(1)]
+		//console.log(this.props);
+
+		const { pages = [], name = '' } = this.state || {}
+
 
 		return <Layout>
 
@@ -75,11 +78,12 @@ class Kiosk extends React.Component {
 				<FormGroup legendText="" className="bx--col-md-6">
 					<TextInput
 						id="Name"
+						value={name}
 						required
 						labelText="Kiosk name"
 						placeholder="Office lobby kiosk"
-						onChange={e => this.onNameUpdate(e)}
-						/>
+						type="text"
+					/>
 				</FormGroup>
 			</div>
 
@@ -113,23 +117,21 @@ class Kiosk extends React.Component {
 		</Layout>
 	}
 
-	static getInitialProps({ req, store }) {
+	static async getInitialProps({ req, store, auth, query }) {
+		let kioskId
 
-		console.log(req.params);
-
-		if (req && req.params) {
-			console.log(store.getState());
+		if (req) {
+			kioskId = req.params.id
+		} else {
+			kioskId = query.id
 		}
 
-		//const { auth: { id, token }} = store.getState()
+		const kioskData = await fetchKioskData(getKioskUrlByID(kioskId), auth.token)
 
+		console.log(kioskData);
 
-//fetchKiosk(id, token)
-
-
-
-		return {}
+		return kioskData
 	}
 }
 
-export default withRedux(Kiosk)
+export default Authenticated(withRedux(Kiosk))

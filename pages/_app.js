@@ -20,7 +20,6 @@ class MyApp extends App {
 				<Provider store={store}>
 					<Component {...pageProps} />
 				</Provider>
-
 	  </Container>
 	}
 }

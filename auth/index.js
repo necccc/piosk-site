@@ -6,7 +6,6 @@ import getConfig from 'next/config'
 const { publicRuntimeConfig: { api_url } } = getConfig()
 const isServer = typeof window === 'undefined';
 
-
 const decodeToken = (jwt) => {
 	const { payloadObj } = KJUR.jws.JWS.parse(jwt)
 	return payloadObj
@@ -36,10 +35,10 @@ const getToken = async function (access_token) {
 
 	if (tokenResponse.error) return {}
 
-	const { jwt: token } = tokenResponse
+	const { jwt: token, name } = tokenResponse
 	const { sub: userId } = decodeToken(token)
 
-	return { token, userId }
+	return { token, userId, name }
 }
 
 export const AuthContext = React.createContext({});
@@ -59,14 +58,15 @@ export const wrapWithAuth = (App) => {
 			if (app.ctx.req) {
 				const { ctx: { req }} = app
 
-				console.log('authenticate 1 - get auth from req');
+				//console.log('authenticate 1 - get auth from req');
 
 				if (req.cookies && req.cookies.access_token) {
 					const auth = await getToken(req.cookies.access_token)
 					initialProps.auth = auth
 					authStore(auth)
 					app.ctx.auth = auth
-					console.log('authenticate 2 - has token!');
+
+					//console.log('authenticate 2 - has token!');
 				}
 			} else {
 				const auth = authStore()
@@ -77,8 +77,7 @@ export const wrapWithAuth = (App) => {
 				initialProps = Object.assign(initialProps, await App.getInitialProps.call(App, app))
             }
 
-			console.log('authenticate 3 - initialProps', !!initialProps.auth);
-
+//			console.log('authenticate 3 - initialProps', !!initialProps.auth);
             return initialProps
 		}
 
@@ -94,7 +93,7 @@ export const wrapWithAuth = (App) => {
 				auth = authStore()
 			}
 
-			console.log('authenticate 4 - render', !!auth);
+			//console.log('authenticate 4 - render', !!auth);
 
             this.auth = auth
         }
@@ -103,7 +102,7 @@ export const wrapWithAuth = (App) => {
 
 			let { ...props } = this.props
 
-			console.log('authenticate 5 - render', this.auth );
+			console.log('AuthContext.Provider value', this.auth );
 
 			return (<AuthContext.Provider value={ this.auth }>
 				<App {...props}  />
@@ -128,8 +127,9 @@ export default (Comp) => {
             return initialProps
 		}
 
-		render() { return <AuthContext.Consumer>
-				{auth => <Comp auth={auth} />}
+		render() {
+			return <AuthContext.Consumer>
+				{auth => {console.log('AuthContext.Consumer', auth); return <Comp {...this.props} auth={auth} />}}
 			</AuthContext.Consumer>
 		}
 

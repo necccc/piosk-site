@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
 		scope
 	} = token
 
-	const userData = await fetch('https://api.github.com/user/emails', {
+	const userData = await fetch('https://api.github.com/user', {
 		method: 'GET',
 		headers: {
 			'Accept': 'application/vnd.github.v3+json',
@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({ token: access_token })
+		body: JSON.stringify({ name: userData.name, token: access_token })
 	}).then(response => response.json())
 	.catch(e => {
 		console.error(e)

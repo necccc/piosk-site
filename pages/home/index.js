@@ -20,7 +20,7 @@ class Index extends React.Component {
 
 		<div>
 
-		 {(this.props.auth) ? (
+		 {(this.props.auth && this.props.auth.token) ? (
 			<Link to="client">
 				<a>
 					See your Kiosks

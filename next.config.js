@@ -11,7 +11,7 @@ module.exports = withTM(withSass({
 
 	publicRuntimeConfig: {
 		asset_url: '',
-		gh_scope: 'user:email',
+		gh_scope: 'user:read',
 		gh_client_id: process.env.GH_OAUTH_CLIENT_ID,
 		gh_redirect_uri: process.env.GH_REDIRECT_URI,
 		api_url: process.env.API_URL,

@@ -1,34 +1,33 @@
 import React from 'react'
-import withRedux, { fetchClient, fetchClientKiosks } from './state'
+import withRedux, { fetchClient } from './state'
 import Layout from '../../layouts/Default'
-import Authenticated from '../../components/Authenticated'
+import Authenticated from '../../auth'
 import KioskList from '../../components/KioskList'
-import withAuth, { setToken } from '../../store/auth'
 import { Button } from 'carbon-components-react'
 import Link from '../../components/Link'
 import styles from './styles.scss'
+import Router from 'next/router';
 
 class Client extends React.Component {
 
 	onSubmit (e) {
 		console.log(e);
-
 	}
 
 	componentDidMount() {
 		console.log('Client componentDidMount', this.props);
 
-		const  { id, token } = this.props
-		this.props.fetchClientKiosks(id, token)
+		const  { userId, token } = this.props.auth
+		this.props.fetchClientKiosks(userId, token)
 	}
 
 	render() {
 
-		const { id , created_at, kiosks } = this.props
+		const { auth: { userId } , created_at, kiosks } = this.props
 
 		return <Layout>
 
-			<h1>Hello {id}!</h1>
+			<h1>Hello { userId }!</h1>
 
 			<KioskList kiosks={ kiosks } />
 
@@ -39,19 +38,24 @@ class Client extends React.Component {
 		</Layout>
 	}
 
-	static getInitialProps({ req, store }) {
-		if (req && req.query.jwt) {
-			//store.dispatch(setToken(req.query.jwt))
+	static getInitialProps({ req, res, store, auth }) {
 
-			const { auth: { id, token }} = store.getState()
-
-			fetchClient(id, token)
-
+		if (res) {
+			res.writeHead(302, {
+			  Location: '/'
+			})
+			res.end()
+		} else {
+			Router.push('/')
 		}
+
+		const { userId, token } = auth
+
+		fetchClient(userId, token)
 
 		return {}
 	}
 
 }
 
-export default Authenticated(withAuth(withRedux(Client)))
+export default Authenticated(withRedux(Client))

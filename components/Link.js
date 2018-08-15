@@ -15,7 +15,7 @@ export default (props) => (<Route.Consumer>
 
 		let urlParams = routes[to].path.match(/:[\w-_]*/ig)
 		let propParams = []
-		let as = to
+		let as = routes[to].path
 		let href = `/${routes[to].page}`
 
 		const linkProps = {
@@ -35,7 +35,7 @@ export default (props) => (<Route.Consumer>
 			as = urlParams.reduce((url, param, index)=> {
 				url = url.replace(param, props[[propParams[index]]])
 				return url
-			}, routes[to].path)
+			}, as)
 
 			href = urlParams.reduce((url, param, index)=> {
 				const amp = url[url.length - 1] === '?' ? '' : '&'

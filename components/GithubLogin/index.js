@@ -5,6 +5,7 @@ import {
 import getConfig from 'next/config'
 
 import styles from './styles.scss'
+
 const { publicRuntimeConfig: { gh_client_id, gh_redirect_uri, nonce_state, gh_scope} } = getConfig()
 
 class GithubLogin extends React.Component {

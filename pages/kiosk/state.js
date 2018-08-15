@@ -6,17 +6,22 @@ import getConfig from 'next/config'
 const { publicRuntimeConfig: { api_url } } = getConfig()
 
 const DEFAULT_STATE = {
-	name: '',
-	pages: []
+	
 }
 
 const { action, getState } = createState('kiosk', DEFAULT_STATE)
 
-export const fetchKiosk = (kioskUrl) => async (dispatch) => {
+
+
+
+
+export const getKioskUrlByID = (id) => (`/v1/kiosk/${id}`)
+
+export const fetchKioskData = async (kioskUrl, token) => {
 
 	console.log('fetch kiosk data', kioskUrl);
 
-	const kioskData = await fetch(`${api_url}${kioskUrl}`, {
+	return fetch(`${api_url}${kioskUrl}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -26,9 +31,6 @@ export const fetchKiosk = (kioskUrl) => async (dispatch) => {
 	.then(response => response.json())
 	.catch(e => console.error(e))
 
-	const { kiosk } = kioskData
-
-	dispatch(receiveKioskData(kiosk))
 }
 
 export const pushKiosk = (kiosk, token) => async (dispatch) => {
@@ -62,4 +64,4 @@ export const pushKiosk = (kiosk, token) => async (dispatch) => {
 
 
 
-export default ReduxComposeFactory({ pushKiosk, fetchKiosk }, getState)
+export default ReduxComposeFactory({ pushKiosk, fetchKioskData }, getState)

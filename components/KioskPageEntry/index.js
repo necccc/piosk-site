@@ -54,6 +54,7 @@ class KioskPageEntry extends React.Component {
 					<div className="bx--col-md-6">
 						<TextInput
 							id={`PageUrl_${id}`}
+							value={ url }
 							required
 							labelText="Page Url"
 							placeholder="https://"
@@ -63,6 +64,7 @@ class KioskPageEntry extends React.Component {
 					<div className="bx--col-md-3">
 						<TextInput
 							id={`PageTime_${id}`}
+							value={ time }
 							labelText="Cycle after seconds"
 							placeholder="30"
 							onChange={e => this.onChange('time', e)}
