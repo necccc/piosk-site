@@ -1,9 +1,10 @@
 import React from 'react'
 import {
 	StructuredListRow,
-	StructuredListCell
+	StructuredListCell,
+	Button
 } from 'carbon-components-react'
-import Link from 'next/link'
+import Link from '../Link'
 import moment from 'moment'
 
 import styles from './styles.scss'
@@ -24,15 +25,12 @@ class KioskListItem extends React.Component {
 						{pages.length}
 					</StructuredListCell>
 					<StructuredListCell className="kiosk-list-actions">
-						<Link>
+						<Link to="kiosk" id={ id }>
 							<a>Edit</a>
 						</Link>
-						<Link>
-							<a>Token</a>
-						</Link>
-						<Link>
-							<a>Delete</a>
-						</Link>
+						<a>Token</a>
+						<a>Delete</a>
+
 					</StructuredListCell>
 				</StructuredListRow>
 	}

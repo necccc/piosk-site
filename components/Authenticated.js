@@ -43,8 +43,11 @@ export default function (Component) {
 		}
 
 		componentDidMount () {
+
 			if (!this.props.token && Router.router.route !== '/home') {
-				Router.push('/')
+				console.log('Authenticated mount', [this.props.token, Router.router.route] );
+
+				//Router.push('/')
 			}
 
 			this.setState({ isLoading: false })

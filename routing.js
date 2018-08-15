@@ -1,7 +1,8 @@
 const routes = {
-	'/': 'home',
-	'/client': 'client',
-	'/kiosk': 'kiosk'
+	'home': { path: '/', page: 'home'},
+	'client': { path: '/client', page: 'client'},
+	'newkiosk': { path: '/kiosk', page: 'kiosk' },
+	'kiosk': { path: '/kiosk/:id', page: 'kiosk' },
 }
 
 module.exports = () => routes
