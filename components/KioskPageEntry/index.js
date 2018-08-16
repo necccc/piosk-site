@@ -26,7 +26,7 @@ class KioskPageEntry extends React.Component {
 
 		return <FormGroup legendText="" >
 				<div className="bx--row">
-				<div className="bx--col-md-1">
+				<div className="bx--offset-lg-1 bx--col-lg-1 ">
 					{index + 1}
 					{/*
 
@@ -51,7 +51,7 @@ class KioskPageEntry extends React.Component {
 						</Button>
 
 	*/}</div>
-					<div className="bx--col-md-6">
+					<div className="bx--col-md-5">
 						<TextInput
 							id={`PageUrl_${id}`}
 							value={ url }
@@ -61,17 +61,18 @@ class KioskPageEntry extends React.Component {
 							onChange={e => this.onChange('url', e)}
 							/>
 					</div>
-					<div className="bx--col-md-3">
+					<div className="bx--col-md-2">
 						<TextInput
+							className="kiosk--field--time"
 							id={`PageTime_${id}`}
-							value={ time }
+							defaultValue={ time }
 							labelText="Cycle after seconds"
 							placeholder="30"
 							onChange={e => this.onChange('time', e)}
 							type="number"
 							 />
 					</div>
-					<div className="bx--col-md-2">
+					<div className="bx--col-md-1">
 						<Button
 							kind="secondary"
 							onClick={() => this.props.onRemove(id)}>

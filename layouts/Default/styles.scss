@@ -22,3 +22,12 @@ $css--plex: true !default;
 @import 'node_modules/carbon-components/scss/globals/scss/_css--body.scss';
 @import 'node_modules/carbon-components/scss/globals/scss/_css--typography.scss';
 @import 'node_modules/carbon-components/scss/globals/grid/_grid.scss';
+
+html, body {
+	font-size: 18px;
+	background: $inverse-01;
+}
+
+main {
+	background: $inverse-01;
+}

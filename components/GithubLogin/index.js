@@ -17,7 +17,7 @@ class GithubLogin extends React.Component {
 		url += `scope=${gh_scope}&`
 		url += `state=${nonce_state}`
 
-		return <Button kind="primary" href={url}>
+		return <Button kind="secondary" href={url} className="bx--btn--inverse">
 			{this.props.children}
 		</Button>
 	}

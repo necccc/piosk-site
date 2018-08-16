@@ -70,50 +70,59 @@ class Kiosk extends React.Component {
 		const { pages = [], name = '' } = this.state || {}
 
 
-		return <Layout>
+		return <Layout showHeader={true}>
 
-			<h1>Kiosk</h1>
+			<div className="bx--grid">
 
-			<div className="bx--row">
-				<FormGroup legendText="" className="bx--col-md-6">
-					<TextInput
-						id="Name"
-						value={name}
-						required
-						labelText="Kiosk name"
-						placeholder="Office lobby kiosk"
-						type="text"
-					/>
-				</FormGroup>
+				<div className="bx--row">
+    				<div className="bx--offset-lg-1 bx--col-lg-10 kiosk--edit">
+						<h1>Set up new Kiosk</h1>
+					</div>
+				</div>
+
+				<div className="bx--row">
+					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-10">
+						<TextInput
+							id="Name"
+							value={name}
+							required
+							labelText="Kiosk name"
+							placeholder="Office lobby kiosk"
+							type="text"
+						/>
+					</FormGroup>
+				</div>
+
+				{pages.map(({ id, url, time }, i) => <KioskPageEntry
+					id={id}
+					url={url}
+					time={time}
+					key={`PageEntry_${id}`}
+					index={i}
+					onUpdate={data => this.onPageUpdate(data)}
+					onRemove={id => this.removePageEntry(id)}
+				/>)}
+
+				<div className="bx--row">
+					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-10 ">
+						<Button
+							kind="secondary"
+							onClick={e => this.addPageEntry()}>
+								Add new page
+						</Button>
+					</FormGroup>
+				</div>
+
+				<div className="bx--row">
+					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-10 ">
+						<Button
+							onClick={e => this.onSave()}>
+								Save
+						</Button>
+					</FormGroup>
+				</div>
+
 			</div>
-
-			{pages.map(({ id, url, time }, i) => <KioskPageEntry
-				id={id}
-				url={url}
-				time={time}
-				key={`PageEntry_${id}`}
-				index={i}
-				onUpdate={data => this.onPageUpdate(data)}
-				onRemove={id => this.removePageEntry(id)}
-			/>)}
-
-			<FormGroup legendText="" >
-				<div className="bx--row">
-					<Button
-						kind="secondary"
-						onClick={e => this.addPageEntry()}>
-							Add new page
-					</Button>
-				</div>
-			</FormGroup>
-			<FormGroup legendText="" >
-				<div className="bx--row">
-					<Button
-						onClick={e => this.onSave()}>
-							Save
-					</Button>
-				</div>
-			</FormGroup>
 		</Layout>
 	}
 
@@ -121,16 +130,16 @@ class Kiosk extends React.Component {
 		let kioskId
 
 		if (req) {
-			kioskId = req.params.id
+			//kioskId = req.params.id
 		} else {
-			kioskId = query.id
+			//kioskId = query.id
 		}
 
-		const kioskData = await fetchKioskData(getKioskUrlByID(kioskId), auth.token)
+		//const kioskData = await fetchKioskData(getKioskUrlByID(kioskId), auth.token)
 
-		console.log(kioskData);
+		//console.log(kioskData);
 
-		return kioskData
+		return {name: '', pages: []} //kioskData
 	}
 }
 

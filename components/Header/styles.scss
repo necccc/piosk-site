@@ -1,0 +1,15 @@
+@import 'node_modules/carbon-components/scss/globals/scss/_typography.scss';
+@import 'node_modules/carbon-components/scss/components/button/_button.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_colors.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_spacing.scss';
+
+
+.header--container {
+
+	padding: $spacing-3xl 0 $spacing-xl 0;
+	background-color: $ui-03;
+
+	position: relative;
+	border-bottom: 1px solid $brand-01;
+
+}

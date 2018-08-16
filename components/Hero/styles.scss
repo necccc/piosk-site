@@ -1,0 +1,30 @@
+@import 'node_modules/carbon-components/scss/globals/scss/_typography.scss';
+@import 'node_modules/carbon-components/scss/components/button/_button.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_colors.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_spacing.scss';
+
+
+.hero--container {
+	height: 600px;
+	background-color: $ui-05;
+	text-align: center;
+	position: relative;
+
+	&-inner {
+		height: 200px;
+		position: absolute;
+		width: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: $inverse-01;
+
+		h1 {
+			margin-bottom: $spacing-3xl;
+
+		}
+		h2 {
+			margin-bottom: $spacing-3xl;
+		}
+	}
+}

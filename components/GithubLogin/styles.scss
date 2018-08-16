@@ -1,1 +1,13 @@
 @import 'node_modules/carbon-components/scss/components/button/_button.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_colors.scss';
+
+.bx--btn.bx--btn--inverse {
+	border-color: $inverse-01;
+	color: $inverse-01;
+
+	&.bx--btn--secondary:focus,
+	&.bx--btn--secondary:hover {
+		background-color: $inverse-01;
+		color: $ui-05;
+	}
+}
