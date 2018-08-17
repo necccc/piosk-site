@@ -25,28 +25,46 @@ class Client extends React.Component {
 
 		const { auth: { userId } , created_at, kiosks } = this.props
 
-		return <Layout>
+		return <Layout showHeader={true}>
+			<div className="bx--grid client--page">
 
-			<h1>Hello { userId }!</h1>
+				<div className="bx--row">
+					<div className="bx--offset-lg-1 bx--col-lg-10 client--page--header">
+						<h1>Hello { userId }!</h1>
+					</div>
+				</div>
+				<div className="bx--row">
+					<div className="bx--offset-lg-1 bx--col-lg-10 client--page--kiosks">
+						<KioskList kiosks={ kiosks } />
+					</div>
+				</div>
+				<div className="bx--row">
+					<div className="bx--offset-lg-1 bx--col-lg-10 client--page--create">
+						<Link to="newkiosk">
+							<Button>Create new kiosk</Button>
+						</Link>
+					</div>
+				</div>
+			</div>
 
-			<KioskList kiosks={ kiosks } />
 
-			<Link to="newkiosk">
-				<Button>Create new kiosk</Button>
-			</Link>
+
+
 
 		</Layout>
 	}
 
 	static getInitialProps({ req, res, store, auth }) {
 
-		if (res) {
-			res.writeHead(302, {
-			  Location: '/'
-			})
-			res.end()
-		} else {
-			Router.push('/')
+		if (!auth || !auth.token) {
+			if (res) {
+				res.writeHead(302, {
+				Location: '/'
+				})
+				res.end()
+			} else {
+				Router.push('/')
+			}
 		}
 
 		const { userId, token } = auth

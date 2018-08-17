@@ -14,12 +14,10 @@ class Index extends React.Component {
 	render() {
 
 		console.log(this.props);
+		
+		return <Layout showHeader={false}>
 
-		const headerContent = <h1>Piosk</h1>
 
-		return <Layout showHeader={true} headerContent={headerContent}>
-
-{/*
 			<Hero />
 
 			<div className="bx--grid">
@@ -65,7 +63,7 @@ class Index extends React.Component {
     				</div>
   				</div>
 			</div>
-*/}
+
 		{/*<div>
 
 		 {(this.props.auth && this.props.auth.token) ? (

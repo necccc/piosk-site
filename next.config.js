@@ -2,12 +2,12 @@ const withTM = require('@weco/next-plugin-transpile-modules')
 const withSass = require('@zeit/next-sass')
 const routing = require('./routing')
 
-module.exports = withTM(withSass({
+module.exports = withSass({
 
 	port: process.env.APP_PORT,
 	host: process.env.APP_HOST,
 
-	transpileModules: [],
+	//transpileModules: [],
 
 	publicRuntimeConfig: {
 		asset_url: '',
@@ -21,4 +21,4 @@ module.exports = withTM(withSass({
 	exportPathMap: routing,
 	useFileSystemPublicRoutes: false,
 	cssModules: false
-}))
+})
