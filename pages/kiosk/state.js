@@ -6,7 +6,7 @@ import getConfig from 'next/config'
 const { publicRuntimeConfig: { api_url } } = getConfig()
 
 const DEFAULT_STATE = {
-	
+
 }
 
 const { action, getState } = createState('kiosk', DEFAULT_STATE)
@@ -40,6 +40,8 @@ export const pushKiosk = (kiosk, token) => async (dispatch) => {
 	const data = Object.assign({}, kiosk)
 
 	data.pages = data.pages.map(({ url, time }) => ({url, time}))
+
+	console.log("pushKiosk", data);
 
 	const kioskData = await fetch(`${api_url}/v1/kiosk`, {
 			method: 'POST',

@@ -14,7 +14,7 @@ import styles from './styles.scss'
 class KioskList extends React.Component {
 	render() {
 
-		const { kiosks } = this.props
+		const { kiosks, showToken } = this.props
 
 		return <StructuredListWrapper>
 			<StructuredListHead>
@@ -34,7 +34,7 @@ class KioskList extends React.Component {
 				</StructuredListRow>
 			</StructuredListHead>
 			<StructuredListBody>
-				{kiosks.map(kiosk => <KioskListItem key={kiosk.id} {...kiosk} />)}
+				{kiosks.map(kiosk => <KioskListItem key={kiosk.id} showToken={e => showToken(e)} {...kiosk}  />)}
 			</StructuredListBody>
 		</StructuredListWrapper>
 	}

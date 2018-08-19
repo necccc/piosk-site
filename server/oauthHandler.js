@@ -47,6 +47,8 @@ module.exports = async (req, res) => {
 		res.sendStatus(500);
 	})
 
+	console.log(userData);
+
 	if (!userData) {
 		return res.sendStatus(403);
 	}
@@ -60,7 +62,7 @@ module.exports = async (req, res) => {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({ name: userData.name, token: access_token })
+		body: JSON.stringify({ github_id: (userData.id).toString(), name: userData.name, token: access_token })
 	}).then(response => response.json())
 	.catch(e => {
 		console.error(e)

@@ -33,7 +33,13 @@ const getToken = async function (access_token) {
 	}).then(response => response.json())
 	.catch(e => ({ error: true, e }))
 
-	if (tokenResponse.error) return {}
+
+console.log(tokenResponse);
+
+	if (tokenResponse.error) {
+		console.error(tokenResponse)
+		return {}
+	}
 
 	const { jwt: token, name } = tokenResponse
 	const { sub: userId } = decodeToken(token)

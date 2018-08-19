@@ -15,8 +15,8 @@ class Kiosk extends React.Component {
 
 	static getEmptyPage(temporaryID) {
 		return {
-			id: `Kiosk${temporaryID}`,
-			url: ' ',
+			id: `Page_${temporaryID}`,
+			url: '',
 			time: 30
 		}
 	}
@@ -40,6 +40,8 @@ class Kiosk extends React.Component {
 	}
 
 	onPageUpdate(data) {
+		console.log(data);
+
 		const pages = this.state.pages.slice()
 		const index = pages.findIndex(page => page.id === data.id)
 		pages[index] = data
@@ -84,11 +86,12 @@ class Kiosk extends React.Component {
 					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-10">
 						<TextInput
 							id="Name"
-							value={name}
+							defaultValue={name}
 							required
 							labelText="Kiosk name"
 							placeholder="Office lobby kiosk"
 							type="text"
+							onChange={ e => this.onNameUpdate(e) }
 						/>
 					</FormGroup>
 				</div>
@@ -115,8 +118,7 @@ class Kiosk extends React.Component {
 
 				<div className="bx--row">
 					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-10 ">
-						<Button
-							onClick={e => this.onSave()}>
+						<Button onClick={e => this.onSave()}>
 								Save
 						</Button>
 					</FormGroup>

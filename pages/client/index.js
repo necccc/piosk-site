@@ -1,17 +1,31 @@
 import React from 'react'
+import Router from 'next/router';
+import { Button, Modal } from 'carbon-components-react'
+
 import withRedux, { fetchClient } from './state'
 import Layout from '../../layouts/Default'
 import Authenticated from '../../auth'
 import KioskList from '../../components/KioskList'
-import { Button } from 'carbon-components-react'
 import Link from '../../components/Link'
 import styles from './styles.scss'
-import Router from 'next/router';
 
 class Client extends React.Component {
 
-	onSubmit (e) {
+	onSubmit(e) {
 		console.log(e);
+	}
+
+	onShowToken(id, name) {
+		console.log(id, name);
+
+	}
+
+	onModalClick() {
+		console.log('modal click');
+
+		this.setState({
+			modalOpen: false
+		})
 	}
 
 	componentDidMount() {
@@ -19,23 +33,27 @@ class Client extends React.Component {
 
 		const  { userId, token } = this.props.auth
 		this.props.fetchClientKiosks(userId, token)
+
+
 	}
 
 	render() {
+console.log(this.props.auth);
 
-		const { auth: { userId } , created_at, kiosks } = this.props
+		const { auth: { name } , created_at, kiosks } = this.props
+		const { modalOpen = false, modalTitle = '' } = this.state || {}
 
 		return <Layout showHeader={true}>
 			<div className="bx--grid client--page">
 
 				<div className="bx--row">
 					<div className="bx--offset-lg-1 bx--col-lg-10 client--page--header">
-						<h1>Hello { userId }!</h1>
+						<h1>Hello {/* name.split(' ')[0] */}!</h1>
 					</div>
 				</div>
 				<div className="bx--row">
 					<div className="bx--offset-lg-1 bx--col-lg-10 client--page--kiosks">
-						<KioskList kiosks={ kiosks } />
+						<KioskList kiosks={ kiosks } showToken={e => this.onShowToken(e)} />
 					</div>
 				</div>
 				<div className="bx--row">
@@ -47,8 +65,20 @@ class Client extends React.Component {
 				</div>
 			</div>
 
-
-
+<Modal
+  className="some-class"
+  open={modalOpen}
+  passiveModal
+  modalHeading={modalTitle}
+  modalLabel="Read-only token"
+  modalAriaLabel=""
+  iconDescription="Close the modal"
+  onRequestClose={e => this.onModalClick()}
+>
+<p className="bx--modal-content__text">
+	Please see ModalWrapper for more examples and demo of the functionality.
+</p>
+</Modal>
 
 
 		</Layout>
@@ -67,11 +97,7 @@ class Client extends React.Component {
 			}
 		}
 
-		const { userId, token } = auth
-
-		fetchClient(userId, token)
-
-		return {}
+		return { auth }
 	}
 
 }

@@ -43,6 +43,8 @@ export const fetchClient = (id, token) => async (dispatch) => {
 
 	dispatch(requestApi())
 
+	console.log('fetchClient');
+
 	const clientData = await fetch(`${api_url}/v1/client/${id}`, {
 			method: 'GET',
 			headers: {
@@ -52,6 +54,9 @@ export const fetchClient = (id, token) => async (dispatch) => {
 		})
 		.then(response => response.json())
 		.catch(e => console.error(e))
+
+console.log(clientData);
+
 
 	const { created_at, updated_at } = clientData
 

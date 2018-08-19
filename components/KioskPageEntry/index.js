@@ -7,7 +7,7 @@ class KioskPageEntry extends React.Component {
 
 	onSubmit (e) {
 		console.log(e);
-	
+
 	}
 
 	onChange(key, $elem) {
@@ -20,9 +20,20 @@ class KioskPageEntry extends React.Component {
 		this.props.onUpdate(state)
 	}
 
-	render() {
-		const { index, id, url, time } = this.props
+	componentDidMount() {
 
+		const state = {
+			id: this.props.id,
+			url: '',
+			time: 30
+		}
+		this.setState(state)
+	}
+
+	render() {
+		console.log(this.props);
+
+		const { index, id, url, time } = this.props
 
 		return <FormGroup legendText="" >
 				<div className="bx--row">
@@ -54,12 +65,12 @@ class KioskPageEntry extends React.Component {
 					<div className="bx--col-md-5">
 						<TextInput
 							id={`PageUrl_${id}`}
-							value={ url }
+							defaultValue={ url }
 							required
 							labelText="Page Url"
 							placeholder="https://"
 							onChange={e => this.onChange('url', e)}
-							/>
+						/>
 					</div>
 					<div className="bx--col-md-2">
 						<TextInput
@@ -70,7 +81,7 @@ class KioskPageEntry extends React.Component {
 							placeholder="30"
 							onChange={e => this.onChange('time', e)}
 							type="number"
-							 />
+						/>
 					</div>
 					<div className="bx--col-md-1">
 						<Button
