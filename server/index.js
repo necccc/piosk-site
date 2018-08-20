@@ -8,9 +8,12 @@ const oauthHandler = require('./oauthHandler')
 const dev = process.env.NODE_ENV !== 'production'
 
 module.exports = function (getRoutes, config) {
-	const app = next({ dev })
+	const app = next({ dev, conf: config })
 	const handle = app.getRequestHandler()
 	const nextConfig = app.nextConfig
+
+	console.log(nextConfig);
+
 
 	const initNext = (app) => {
 		return app
