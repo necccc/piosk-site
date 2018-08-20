@@ -8,7 +8,7 @@
     "clean": "rm -rf .next",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx next build",
-    "postinstall": "npm run build",
+    "heroku-postbuild": "npm run build",
     "start": "npx next start"
   },
   "repository": {
