@@ -28,7 +28,7 @@ class KioskListItem extends React.Component {
 						<Link to="kiosk" id={ id }>
 							<a>Edit</a>
 						</Link>
-						<a onClick={e => showToken({id, name})}>Token</a>
+						<a href="#token" onClick={ e => showToken({id, name})}>Token</a>
 						<a>Delete</a>
 
 					</StructuredListCell>

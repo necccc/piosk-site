@@ -5,21 +5,13 @@ import getConfig from 'next/config'
 
 const { publicRuntimeConfig: { api_url } } = getConfig()
 
-const DEFAULT_STATE = {
-
-}
+const DEFAULT_STATE = {}
 
 const { action, getState } = createState('kiosk', DEFAULT_STATE)
-
-
-
-
 
 export const getKioskUrlByID = (id) => (`/v1/kiosk/${id}`)
 
 export const fetchKioskData = async (kioskUrl, token) => {
-
-	console.log('fetch kiosk data', kioskUrl);
 
 	return fetch(`${api_url}${kioskUrl}`, {
 		method: 'GET',
@@ -40,8 +32,6 @@ export const pushKiosk = (kiosk, token) => async (dispatch) => {
 	const data = Object.assign({}, kiosk)
 
 	data.pages = data.pages.map(({ url, time }) => ({url, time}))
-
-	console.log("pushKiosk", data);
 
 	const kioskData = await fetch(`${api_url}/v1/kiosk`, {
 			method: 'POST',
@@ -65,5 +55,21 @@ export const pushKiosk = (kiosk, token) => async (dispatch) => {
 }
 
 
+export const fetchKioskToken = async (id, authToken) => {
+
+	const clientData = await fetch(`${api_url}/v1/kiosk/${id}/token`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': authToken
+			}
+		})
+		.then(response => response.json())
+		.catch(e => console.error(e))
+
+	const { token } = clientData
+
+	return token
+}
 
 export default ReduxComposeFactory({ pushKiosk, fetchKioskData }, getState)

@@ -6,7 +6,7 @@ import Layout from '../../layouts/Default'
 import KioskPageEntry from '../../components/KioskPageEntry'
 import { TextInput, FormGroup } from 'carbon-components-react'
 import { Button } from 'carbon-components-react'
-
+import Link from '../../components/Link'
 import Router from 'next/router'
 
 import styles from './styles.scss'
@@ -40,8 +40,6 @@ class Kiosk extends React.Component {
 	}
 
 	onPageUpdate(data) {
-		console.log(data);
-
 		const pages = this.state.pages.slice()
 		const index = pages.findIndex(page => page.id === data.id)
 		pages[index] = data
@@ -49,28 +47,19 @@ class Kiosk extends React.Component {
 	}
 
 	onSave() {
-		console.log(this.state);
-		console.log(this.props);
-
 		this.props.pushKiosk(this.state, this.props.auth.token)
 	}
 
 	componentDidMount() {
-
-
 		const state = {
 			name: this.props.name,
 			pages: this.props.pages
 		}
-//console.log(this.props);
 		this.setState(state)
 	}
 
 	render() {
-		//console.log(this.props);
-
 		const { pages = [], name = '' } = this.state || {}
-
 
 		return <Layout showHeader={true}>
 
@@ -97,7 +86,7 @@ class Kiosk extends React.Component {
 				</div>
 
 				{pages.map(({ id, url, time }, i) => <KioskPageEntry
-					id={id}
+					id={`Page_${i + 1}`}
 					url={url}
 					time={time}
 					key={`PageEntry_${id}`}
@@ -118,9 +107,16 @@ class Kiosk extends React.Component {
 
 				<div className="bx--row">
 					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-10 ">
+
 						<Button onClick={e => this.onSave()}>
 								Save
 						</Button>
+
+						<Link to="client">
+						<Button kind="secondary">
+								Cancel
+						</Button>
+						</Link>
 					</FormGroup>
 				</div>
 
@@ -132,16 +128,16 @@ class Kiosk extends React.Component {
 		let kioskId
 
 		if (req) {
-			//kioskId = req.params.id
+			kioskId = req.params.id
 		} else {
-			//kioskId = query.id
+			kioskId = query.id
 		}
 
-		//const kioskData = await fetchKioskData(getKioskUrlByID(kioskId), auth.token)
+		const kioskData = await fetchKioskData(getKioskUrlByID(kioskId), auth.token)
 
-		//console.log(kioskData);
-
-		return {name: '', pages: []} //kioskData
+		return { name: kioskData.name || '',
+			pages: kioskData.pages || []
+		}
 	}
 }
 

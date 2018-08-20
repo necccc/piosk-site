@@ -12,9 +12,6 @@ module.exports = function (getRoutes, config) {
 	const handle = app.getRequestHandler()
 	const nextConfig = app.nextConfig
 
-
-
-
 	const initNext = (app) => {
 		return app
 			.prepare()
@@ -40,9 +37,6 @@ module.exports = function (getRoutes, config) {
 	}
 
 	const startServer = (server) => {
-
-		console.log(config);
-
 		const { port } = config
 
 		server.listen(port, (err) => {
