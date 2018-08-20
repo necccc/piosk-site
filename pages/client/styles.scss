@@ -1,6 +1,7 @@
 @import 'node_modules/carbon-components/scss/components/form/_form.scss';
 @import 'node_modules/carbon-components/scss/components/modal/_modal.scss';
 @import 'node_modules/carbon-components/scss/components/text-input/_text-input.scss';
+@import 'node_modules/carbon-components/scss/components/text-area/_text-area.scss';
 @import 'node_modules/carbon-components/scss/globals/scss/_css--typography.scss';
 @import 'node_modules/carbon-components/scss/globals/grid/_grid.scss';
 @import 'node_modules/carbon-components/scss/globals/scss/_spacing.scss';
@@ -16,5 +17,11 @@
 	&--kiosks {
 		margin-bottom: $spacing-2xl;
 	}
+}
 
+.read-access-token {
+	font-family: monospace;
+	font-size: 1.5rem;
+	margin-bottom: $spacing-lg;
+	margin-top: $spacing-lg;
 }

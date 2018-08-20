@@ -1,8 +1,8 @@
 import React from 'react'
 import Router from 'next/router';
-import { Button, Modal } from 'carbon-components-react'
+import { Button, Modal, TextArea } from 'carbon-components-react'
 
-import withRedux, { fetchClient } from './state'
+import withRedux, { fetchClient, fetchToken } from './state'
 import Layout from '../../layouts/Default'
 import Authenticated from '../../auth'
 import KioskList from '../../components/KioskList'
@@ -15,33 +15,32 @@ class Client extends React.Component {
 		console.log(e);
 	}
 
-	onShowToken(id, name) {
-		console.log(id, name);
+	async onShowToken({id, name}) {
+		const { token } = this.props.auth
+		const kioskToken = await fetchToken(id, token)
 
+		this.setState({
+			kioskToken,
+			modalTitle: name,
+			modalId: id,
+			modalOpen: true
+		})
 	}
 
 	onModalClick() {
-		console.log('modal click');
-
 		this.setState({
 			modalOpen: false
 		})
 	}
 
 	componentDidMount() {
-		console.log('Client componentDidMount', this.props);
-
 		const  { userId, token } = this.props.auth
 		this.props.fetchClientKiosks(userId, token)
-
-
 	}
 
 	render() {
-console.log(this.props.auth);
-
 		const { auth: { name } , created_at, kiosks } = this.props
-		const { modalOpen = false, modalTitle = '' } = this.state || {}
+		const { modalOpen = false, modalTitle = '', modalId = '', kioskToken = '' } = this.state || {}
 
 		return <Layout showHeader={true}>
 			<div className="bx--grid client--page">
@@ -65,21 +64,31 @@ console.log(this.props.auth);
 				</div>
 			</div>
 
-<Modal
-  className="some-class"
-  open={modalOpen}
-  passiveModal
-  modalHeading={modalTitle}
-  modalLabel="Read-only token"
-  modalAriaLabel=""
-  iconDescription="Close the modal"
-  onRequestClose={e => this.onModalClick()}
->
-<p className="bx--modal-content__text">
-	Please see ModalWrapper for more examples and demo of the functionality.
-</p>
-</Modal>
-
+			<Modal
+			className="some-class"
+			open={ modalOpen }
+			passiveModal
+			modalHeading={ modalTitle }
+			modalLabel="Read-only token"
+			modalAriaLabel=""
+			iconDescription="Close the modal"
+			onRequestClose={ e => this.onModalClick()}
+			>
+				<p className="bx--modal-content__text">
+					Use the following access token in the piosk client to load and display your kiosk pages
+				</p>
+				<TextArea
+					className="read-access-token"
+					hideLabel={true}
+					value={ kioskToken }
+					labelText="Text Area label"
+					readOnly
+					id="PioskToken"
+				/>
+				<p className="bx--modal-content__text">
+					Click anywhere to close this modal.
+				</p>
+			</Modal>
 
 		</Layout>
 	}

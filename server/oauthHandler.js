@@ -47,8 +47,6 @@ module.exports = async (req, res) => {
 		res.sendStatus(500);
 	})
 
-	console.log(userData);
-
 	if (!userData) {
 		return res.sendStatus(403);
 	}

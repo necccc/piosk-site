@@ -1,5 +1,5 @@
 import ReduxComposeFactory, { createState } from '../../store'
-import { fetchKioskData } from '../kiosk/state'
+import { fetchKioskData, fetchKioskToken } from '../kiosk/state'
 import getConfig from 'next/config'
 
 const { publicRuntimeConfig: { api_url } } = getConfig()
@@ -35,9 +35,15 @@ export const receiveKioskData = action('receiveKioskData', (state, kiosk) => {
 	return {
 		...state,
 		kiosks: newKiosks,
+		isFetching: false,
 	}
 })
 
+export const receiveKioskToken = action('receiveKioskToken', (state, token) => ({
+	...state,
+	kioskToken: token,
+	isFetching: false,
+}))
 
 export const fetchClient = (id, token) => async (dispatch) => {
 
@@ -66,13 +72,7 @@ console.log(clientData);
 
 
 export const fetchKiosk = (kioskUrl, token) => async (dispatch) => {
-
-	console.log('fetch kiosk data', kioskUrl);
-
 	const kiosk = await fetchKioskData(kioskUrl, token)
-
-	console.log(kiosk);
-
 	dispatch(receiveKioskData(kiosk))
 }
 
@@ -101,5 +101,15 @@ export const fetchClientKiosks = (id, token) => async (dispatch) => {
 		console.error(e);
 	}
 }
+
+
+
+export const fetchToken = async (id, authToken) => {
+
+	const token = await fetchKioskToken(id, authToken)
+
+	return token
+}
+
 
 export default ReduxComposeFactory({ fetchClient, fetchClientKiosks }, getState)

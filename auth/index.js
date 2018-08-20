@@ -33,8 +33,7 @@ const getToken = async function (access_token) {
 	}).then(response => response.json())
 	.catch(e => ({ error: true, e }))
 
-
-console.log(tokenResponse);
+	//console.log(tokenResponse);
 
 	if (tokenResponse.error) {
 		console.error(tokenResponse)
@@ -108,7 +107,7 @@ export const wrapWithAuth = (App) => {
 
 			let { ...props } = this.props
 
-			console.log('AuthContext.Provider value', this.auth );
+			//console.log('AuthContext.Provider value', this.auth );
 
 			return (<AuthContext.Provider value={ this.auth }>
 				<App {...props}  />
@@ -135,7 +134,10 @@ export default (Comp) => {
 
 		render() {
 			return <AuthContext.Consumer>
-				{auth => {console.log('AuthContext.Consumer', auth); return <Comp {...this.props} auth={auth} />}}
+				{auth => {
+					//console.log('AuthContext.Consumer', auth);
+					return <Comp {...this.props} auth={auth} />}
+				}
 			</AuthContext.Consumer>
 		}
 
