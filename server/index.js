@@ -12,7 +12,7 @@ module.exports = function (getRoutes, config) {
 	const handle = app.getRequestHandler()
 	const nextConfig = app.nextConfig
 
-	console.log(nextConfig);
+
 
 
 	const initNext = (app) => {
@@ -31,7 +31,6 @@ module.exports = function (getRoutes, config) {
 	const attachNextRoutes = (server) => {
 		const routes = router(app, getRoutes)
 
-
 		server.use('/', routes)
 
 		server.get('/oauth', (req, res) => oauthHandler(req, res))
@@ -41,7 +40,11 @@ module.exports = function (getRoutes, config) {
 	}
 
 	const startServer = (server) => {
-		const { port } = nextConfig
+
+		console.log(config);
+
+		const { port } = config
+
 		server.listen(port, (err) => {
 			if (err) throw err
 			console.log(`> Ready on http://0.0.0.0:${port}`)

@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx next build",
     "heroku-postbuild": "npm run build",
-    "start": "npx next start"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
