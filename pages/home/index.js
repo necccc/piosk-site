@@ -13,8 +13,6 @@ class Index extends React.Component {
 
 	render() {
 
-		console.log(this.props);
-		
 		return <Layout showHeader={false}>
 
 
@@ -22,7 +20,12 @@ class Index extends React.Component {
 
 			<div className="bx--grid">
 				<div className="bx--row">
-    				<div className="bx--offset-lg-1 bx--col-lg-4 home--col">
+					<div className="bx--col-lg-12 home--intro">
+						<h3>Remote managed web kiosk for Raspberry Pi<sup>*</sup></h3>
+					</div>
+				</div>
+				<div className="bx--row">
+    				<div className="bx--offset-lg-2 bx--col-lg-3 home--col col--create">
 						<header className="home--col--header">
 							<h2>Create Kiosk</h2>
 						</header>
@@ -31,7 +34,7 @@ class Index extends React.Component {
 							Log in with your GitHub account, and create your kiosk page collection.
 						</p>
     				</div>
-					<div className="bx--offset-lg-1 bx--col-lg-4 home--col">
+					<div className="bx--offset-lg-2 bx--col-lg-3 home--col col--setup">
 						<header className="home--col--header">
 							<h2>Setup</h2>
 						</header>
@@ -43,7 +46,7 @@ class Index extends React.Component {
   				</div>
 
 				<div className="bx--row">
-    				<div className="bx--offset-lg-1 bx--col-lg-4 home--col">
+    				<div className="bx--offset-lg-2 bx--col-lg-3 home--col col--copy">
 						<header className="home--col--header">
 							<h2>Copy</h2>
 						</header>
@@ -52,7 +55,7 @@ class Index extends React.Component {
 							Copy the working system to multiple Raspberries using CF cards
 						</p>
     				</div>
-					<div className="bx--offset-lg-1 bx--col-lg-4 home--col">
+					<div className="bx--offset-lg-2 bx--col-lg-3 home--col col--display">
 						<header className="home--col--header">
 							<h2>Display</h2>
 						</header>
