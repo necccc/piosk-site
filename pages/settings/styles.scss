@@ -1,0 +1,31 @@
+@import 'node_modules/carbon-components/scss/components/form/_form.scss';
+@import 'node_modules/carbon-components/scss/components/modal/_modal.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_css--typography.scss';
+@import 'node_modules/carbon-components/scss/globals/grid/_grid.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_spacing.scss';
+@import 'node_modules/carbon-components/scss/globals/scss/_typography.scss';
+
+.settings--page {
+
+	&--header {
+		margin-top: $spacing-2xl;
+		margin-bottom: $spacing-2xl;
+	}
+
+	.setting--group {
+		padding-top: $spacing-sm;
+		padding-bottom: $spacing-sm;
+
+		button {
+			margin-top: $spacing-sm;
+		}
+	}
+
+}
+
+.read-access-token {
+	font-family: monospace;
+	font-size: 1.5rem;
+	margin-bottom: $spacing-lg;
+	margin-top: $spacing-lg;
+}

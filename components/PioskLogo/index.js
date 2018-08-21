@@ -15,17 +15,17 @@ export default ({ className, width = 295, height = 295 }) => (<svg
 	</defs>
 	<g>
 		<g>
-			<use href="#c1QWwHJesQ" opacity="1" fill="#000000" fill-opacity="1" />
+			<use href="#c1QWwHJesQ" opacity="1" fill="#000000" fillOpacity="1" />
 		</g>
 		<g>
 			<g>
-				<use className="face" href="#ak4AWtc7d" opacity="1" fill-opacity="0"  stroke-width="9.33" stroke-opacity="1" />
+				<use className="face" href="#ak4AWtc7d" opacity="1" fillOpacity="0"  strokeWidth="9.33" strokeOpacity="1" />
 			</g>
 			<g>
-				<use className="face" href="#b2EPeY5yuu" opacity="1" fill-opacity="0"  stroke-width="9.33" stroke-opacity="1" />
+				<use className="face" href="#b2EPeY5yuu" opacity="1" fillOpacity="0"  strokeWidth="9.33" strokeOpacity="1" />
 			</g>
 			<g>
-				<use className="face" href="#a5VTTxnnVQ" opacity="1" fill-opacity="0"  stroke-width="9.33" stroke-opacity="1" />
+				<use className="face" href="#a5VTTxnnVQ" opacity="1" fillOpacity="0"  strokeWidth="9.33" strokeOpacity="1" />
 			</g>
 		</g>
 	</g>

@@ -1,5 +1,5 @@
 import ReduxComposeFactory, { createState } from '../../store'
-import { fetchKioskData, fetchKioskToken, deleteKiosk } from '../kiosk/state'
+import { fetchKioskData, fetchKioskToken } from '../kiosk/state'
 import getConfig from 'next/config'
 
 const { publicRuntimeConfig: { api_url } } = getConfig()
@@ -39,20 +39,6 @@ export const receiveKioskData = action('receiveKioskData', (state, kiosk) => {
 	}
 })
 
-export const kioskDeleted = action('kioskDeleted', (state, id) => {
-	const newKiosks = state.kiosks.slice()
-
-	const removeIndex = newKiosks.findIndex(kiosk => kiosk.id === id)
-
-	newKiosks.splice(removeIndex, 1)
-
-	return {
-		...state,
-		kiosks: newKiosks,
-		isFetching: false,
-	}
-})
-
 export const receiveKioskToken = action('receiveKioskToken', (state, token) => ({
 	...state,
 	kioskToken: token,
@@ -74,6 +60,9 @@ export const fetchClient = (id, token) => async (dispatch) => {
 		})
 		.then(response => response.json())
 		.catch(e => console.error(e))
+
+console.log(clientData);
+
 
 	const { created_at, updated_at } = clientData
 
@@ -123,21 +112,4 @@ export const fetchToken = async (id, authToken) => {
 }
 
 
-export const removeKiosk = (id, authToken) => async (dispatch) => {
-
-	dispatch(requestApi())
-
-	try {
-		const status = await deleteKiosk(id, authToken)
-
-		if (status !== 204) throw Error('delete error')
-		
-	} catch (e) {
-		throw e
-	}
-
-	dispatch(kioskDeleted(id))
-}
-
-
-export default ReduxComposeFactory({ fetchClient, fetchClientKiosks, removeKiosk }, getState)
+export default ReduxComposeFactory({ fetchClient, fetchClientKiosks }, getState)
