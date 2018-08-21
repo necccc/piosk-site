@@ -12,7 +12,7 @@ import styles from './styles.scss'
 class KioskListItem extends React.Component {
 	render() {
 
-		const { id, created_at, name, pages, showToken } = this.props
+		const { id, created_at, name, pages, showToken, onRemove } = this.props
 
 		return <StructuredListRow className="kiosk-list-item">
 					<StructuredListCell className="kiosk-list-created">
@@ -28,8 +28,8 @@ class KioskListItem extends React.Component {
 						<Link to="kiosk" id={ id }>
 							<a>Edit</a>
 						</Link>
-						<a href="#token" onClick={ e => showToken({id, name})}>Token</a>
-						<a>Delete</a>
+						<a href="#token" onClick={ e => showToken({ id, name })}>Token</a>
+						<a href="#delete" onClick={ e => onRemove({ id })}>Delete</a>
 
 					</StructuredListCell>
 				</StructuredListRow>

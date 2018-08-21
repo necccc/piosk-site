@@ -54,7 +54,6 @@ export const pushKiosk = (kiosk, token) => async (dispatch) => {
 
 }
 
-
 export const fetchKioskToken = async (id, authToken) => {
 
 	const clientData = await fetch(`${api_url}/v1/kiosk/${id}/token`, {
@@ -70,6 +69,21 @@ export const fetchKioskToken = async (id, authToken) => {
 	const { token } = clientData
 
 	return token
+}
+
+export const deleteKiosk = async (id, authToken) => {
+	const clientData = await fetch(`${api_url}/v1/kiosk/${id}`, {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': authToken
+		}
+	})
+	.then(response => response.status)
+	.catch(e => console.error(e))
+
+	return clientData
+
 }
 
 export default ReduxComposeFactory({ pushKiosk, fetchKioskData }, getState)

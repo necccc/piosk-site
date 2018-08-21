@@ -51,6 +51,10 @@ module.exports = async (req, res) => {
 		return res.sendStatus(403);
 	}
 
+
+console.log(userData);
+
+
 	// create user with access token
 	// get jwt
 	// redirect to client page
@@ -66,6 +70,9 @@ module.exports = async (req, res) => {
 		console.error(e)
 		res.sendStatus(500);
 	})
+
+
+	console.log("APIresponse", APIresponse);
 
 	const { jwt } = APIresponse
 

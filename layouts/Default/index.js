@@ -19,7 +19,7 @@ class Layout extends React.Component {
         <Route.Provider value={routing()}>
 
           {showHeader ? (
-            <Header><h1>Piosk</h1></Header>
+            <Header />
           ): ''}
 
           <main>

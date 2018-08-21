@@ -2,7 +2,7 @@ import React from 'react'
 import Router from 'next/router';
 import { Button, Modal, TextArea } from 'carbon-components-react'
 
-import withRedux, { fetchClient, fetchToken } from './state'
+import withRedux, { fetchClient, fetchToken, removeKiosk } from './state'
 import Layout from '../../layouts/Default'
 import Authenticated from '../../auth'
 import KioskList from '../../components/KioskList'
@@ -27,6 +27,13 @@ class Client extends React.Component {
 		})
 	}
 
+	async onRemove({ id }) {
+		console.log('remove', id);
+		
+		const { token } = this.props.auth
+		this.props.removeKiosk(id, token)
+	}
+
 	onModalClick() {
 		this.setState({
 			modalOpen: false
@@ -47,12 +54,12 @@ class Client extends React.Component {
 
 				<div className="bx--row">
 					<div className="bx--offset-lg-1 bx--col-lg-10 client--page--header">
-						<h1>Hello {/* name.split(' ')[0] */}!</h1>
+						<h1>Hello {(name || '').split(' ')[0]}!</h1>
 					</div>
 				</div>
 				<div className="bx--row">
 					<div className="bx--offset-lg-1 bx--col-lg-10 client--page--kiosks">
-						<KioskList kiosks={ kiosks } showToken={e => this.onShowToken(e)} />
+						<KioskList kiosks={ kiosks } showToken={e => this.onShowToken(e)} onRemove={e => this.onRemove(e) } />
 					</div>
 				</div>
 				<div className="bx--row">
@@ -98,7 +105,7 @@ class Client extends React.Component {
 		if (!auth || !auth.token) {
 			if (res) {
 				res.writeHead(302, {
-				Location: '/'
+					Location: '/'
 				})
 				res.end()
 			} else {

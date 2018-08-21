@@ -7,7 +7,7 @@ import { wrapWithAuth } from '../auth'
 
 class MyApp extends App {
 
-	static async getInitialProps ({Component, ctx}) {
+	static async getInitialProps ({ Component, ctx }) {
 	  return {
 			pageProps: (Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
 	  }
