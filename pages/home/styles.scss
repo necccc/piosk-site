@@ -3,12 +3,54 @@
 @import 'node_modules/carbon-components/scss/globals/scss/_css--typography.scss';
 @import 'node_modules/carbon-components/scss/globals/scss/_spacing.scss';
 
+.home--intro {
+	text-align: center;
+	margin-bottom: $spacing-3xl;
+}
+
 .home--col {
 	text-align: center;
 	padding-bottom: $spacing-3xl;
 
 	&--header {
-		padding-top: $spacing-3xl;
+		padding-top: $spacing-3xl * 2;
 		padding-bottom: $spacing-3xl;
+
+		&::before {
+			content: '';
+			display: block;
+
+			background-size: cover;
+			width: $spacing-3xl;
+			height: $spacing-3xl;
+			position: absolute;
+			left: 50%;
+			top: $spacing-xl;
+			transform: translateX(-50%);
+		}
+
+		.col--create & {
+			&::before  {
+				background-image: url('./images/tv.png');
+			}
+		}
+		.col--setup & {
+			&::before  {
+				background-image: url('./images/install.png');
+			}
+		}
+		.col--copy & {
+			&::before  {
+				background-image: url('./images/copy.png');
+			}
+		}
+		.col--display & {
+			&::before  {
+				background-image: url('./images/display.png');
+			}
+		}
 	}
+
+
 }
+

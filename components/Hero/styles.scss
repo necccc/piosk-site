@@ -3,15 +3,29 @@
 @import 'node_modules/carbon-components/scss/globals/scss/_colors.scss';
 @import 'node_modules/carbon-components/scss/globals/scss/_spacing.scss';
 
+.piosk--logo__hero {
+	width: 15vw;
+	height: 15vw;
+	margin-bottom: $spacing-xl;
+
+	path {
+		fill: white;
+	}
+
+	.face {
+		stroke: white;
+	}
+}
 
 .hero--container {
 	height: 600px;
 	background-color: $ui-05;
 	text-align: center;
 	position: relative;
-
+	margin-bottom: $spacing-3xl;
+	
 	&-inner {
-		height: 200px;
+
 		position: absolute;
 		width: 100%;
 		top: 50%;
@@ -20,10 +34,10 @@
 		color: $inverse-01;
 
 		h1 {
-			margin-bottom: $spacing-3xl;
+			margin-bottom: $spacing-xl;
 
 		}
-		h2 {
+		h3 {
 			margin-bottom: $spacing-3xl;
 		}
 	}
