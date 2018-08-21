@@ -1,8 +1,10 @@
 const withTM = require('@weco/next-plugin-transpile-modules')
-const withSass = require('@zeit/next-sass')
+const sass = require('@zeit/next-sass')
 const routing = require('./routing')
+const optimizedImages = require('next-optimized-images');
+const withPlugins = require('next-compose-plugins');
 
-module.exports = withSass({
+const nextConfig = {
 
 	port: process.env.PORT || 3000,
 	host: process.env.HOST || "0.0.0.0",
@@ -20,5 +22,43 @@ module.exports = withSass({
 
 	exportPathMap: routing,
 	useFileSystemPublicRoutes: false,
-	cssModules: false
-})
+
+}
+
+const sassConfig = {
+	cssModules: false,
+	cssLoaderOptions: {
+		importLoaders: 1,
+		localIdentName: '[local]___[name]___[hash:base64:5]'
+	}
+}
+
+const optimizedImagesConfig = {
+	inlineImageLimit: 8192,
+	imagesFolder: 'images',
+	imagesName: '[name]-[hash].[ext]',
+	optimizeImagesInDev: false,
+	mozjpeg: {
+		quality: 80
+	},
+	optipng: {
+		optimizationLevel: 3
+	},
+	pngquant: false,
+	gifsicle: {
+		interlaced: true,
+		optimizationLevel: 3
+	},
+	svgo: {
+		  // enable/disable svgo plugins here
+	},
+	webp: {
+		preset: 'default',
+		quality: 75
+	}
+}
+
+module.exports = withPlugins([
+	[sass, sassConfig],
+	[optimizedImages, optimizedImagesConfig],
+  ], nextConfig);
