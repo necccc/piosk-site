@@ -15,7 +15,7 @@ module.exports = function (getRoutes, config) {
 	const initNext = (app) => {
 		return app
 			.prepare()
-			.then(() => {
+			.then((...args) => {
 				const server = express()
 				const routes = router(app, getRoutes)
 				server.use(cookieParser())
