@@ -15,41 +15,15 @@ export const requestApi = action('requestApi', (state) => ({
 	isFetching: true,
 }))
 
-export const receiveClientData = action('receiveClientData', (state, created_at, updated_at) => ({
-	...state,
-	created_at,
-	updated_at,
-	isFetching: false,
-}))
-
-export const receiveClientKiosks = action('receiveClientKiosks', (state, kiosks) => ({
-	...state,
-	kiosks,
-	isFetching: false,
-}))
-
-export const receiveKioskData = action('receiveKioskData', (state, kiosk) => {
-	const newKiosks = state.kiosks.slice()
-	newKiosks.push(kiosk)
-
-	return {
-		...state,
-		kiosks: newKiosks,
-		isFetching: false,
-	}
-})
-
-export const receiveKioskToken = action('receiveKioskToken', (state, token) => ({
+export const tokenReseted = action('receiveKioskToken', (state, jwt) => ({
 	...state,
 	kioskToken: token,
 	isFetching: false,
 }))
 
-export const fetchClient = (id, token) => async (dispatch) => {
+export const resetToken = (id, token) => async (dispatch) => {
 
 	dispatch(requestApi())
-
-	console.log('fetchClient');
 
 	const clientData = await fetch(`${api_url}/v1/client/${id}`, {
 			method: 'GET',
@@ -61,55 +35,11 @@ export const fetchClient = (id, token) => async (dispatch) => {
 		.then(response => response.json())
 		.catch(e => console.error(e))
 
-console.log(clientData);
+	console.log(clientData);
 
+	const { jwt } = clientData
 
-	const { created_at, updated_at } = clientData
-
-	dispatch(receiveClientData(created_at, updated_at))
+	dispatch(tokenReseted(jwt))
 }
 
-
-
-export const fetchKiosk = (kioskUrl, token) => async (dispatch) => {
-	const kiosk = await fetchKioskData(kioskUrl, token)
-	dispatch(receiveKioskData(kiosk))
-}
-
-
-export const fetchClientKiosks = (id, token) => async (dispatch) => {
-
-	dispatch(requestApi())
-
-	const clientData = await fetch(`${api_url}/v1/client/${id}/kiosks`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': token
-			}
-		})
-		.then(response => response.json())
-		.catch(e => console.error(e))
-
-	const { kiosks } = clientData
-
-	try {
-		const d = kiosks.map(kioskUrl => fetchKioskData(kioskUrl, token))
-		const kioskList = await Promise.all(d)
-		dispatch(receiveClientKiosks(kioskList))
-	} catch (e) {
-		console.error(e);
-	}
-}
-
-
-
-export const fetchToken = async (id, authToken) => {
-
-	const token = await fetchKioskToken(id, authToken)
-
-	return token
-}
-
-
-export default ReduxComposeFactory({ fetchClient, fetchClientKiosks }, getState)
+export default ReduxComposeFactory({ resetToken }, getState)

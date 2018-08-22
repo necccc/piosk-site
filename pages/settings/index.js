@@ -2,7 +2,7 @@ import React from 'react'
 import Router from 'next/router';
 import { Button, Modal, Form, FormGroup } from 'carbon-components-react'
 
-import withRedux, { fetchClient, fetchToken } from './state'
+import withRedux, { resetToken } from './state'
 import Layout from '../../layouts/Default'
 import Authenticated from '../../auth'
 import KioskList from '../../components/KioskList'
