@@ -106,16 +106,16 @@ class Kiosk extends React.Component {
 				</div>
 
 				<div className="bx--row">
-					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-10 ">
-
+					<FormGroup legendText="" className="bx--offset-lg-1 bx--col-lg-1 ">
 						<Button onClick={e => this.onSave()}>
-								Save
+							Save
 						</Button>
-
+					</FormGroup>
+					<FormGroup legendText="" className="bx--col-lg-1 ">
 						<Link to="client">
-						<Button kind="secondary">
+							<Button kind="secondary">
 								Cancel
-						</Button>
+							</Button>
 						</Link>
 					</FormGroup>
 				</div>

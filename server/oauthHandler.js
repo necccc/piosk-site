@@ -51,13 +51,6 @@ module.exports = async (req, res) => {
 		return res.sendStatus(403);
 	}
 
-
-console.log(userData);
-
-
-	// create user with access token
-	// get jwt
-	// redirect to client page
 	const APIresponse = await fetch(`${process.env.API_URL}/v1/client`, {
 		method: 'POST',
 		headers: {
@@ -70,11 +63,6 @@ console.log(userData);
 		console.error(e)
 		res.sendStatus(500);
 	})
-
-
-	console.log("APIresponse", APIresponse);
-
-	const { jwt } = APIresponse
 
 	res
 		.cookie('access_token', access_token, { expires: new Date(Date.now() + 96000000) })

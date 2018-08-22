@@ -131,7 +131,7 @@ export const removeKiosk = (id, authToken) => async (dispatch) => {
 		const status = await deleteKiosk(id, authToken)
 
 		if (status !== 204) throw Error('delete error')
-		
+
 	} catch (e) {
 		throw e
 	}
