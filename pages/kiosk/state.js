@@ -9,6 +9,16 @@ const DEFAULT_STATE = {}
 
 const { action, getState } = createState('kiosk', DEFAULT_STATE)
 
+const normalizeKioskPayload = (kioskData) => {
+	const { name, pages } = kioskData
+	const data = Object.assign({}, { name, pages })
+
+	// remove the fake ID from the pages payload
+	data.pages = data.pages.map(({ url, time }) => ({url, time}))
+
+	return data
+}
+
 export const getKioskUrlByID = (id) => (`/v1/kiosk/${id}`)
 
 export const fetchKioskData = async (kioskUrl, token) => {
@@ -26,12 +36,7 @@ export const fetchKioskData = async (kioskUrl, token) => {
 }
 
 export const pushKiosk = (kiosk, token) => async (dispatch) => {
-
-	//dispatch(requestApi())
-
-	const data = Object.assign({}, kiosk)
-
-	data.pages = data.pages.map(({ url, time }) => ({url, time}))
+	const data = normalizeKioskPayload(kiosk)
 
 	const kioskData = await fetch(`${api_url}/v1/kiosk`, {
 			method: 'POST',
@@ -54,8 +59,28 @@ export const pushKiosk = (kiosk, token) => async (dispatch) => {
 
 }
 
-export const fetchKioskToken = async (id, authToken) => {
 
+export const updateKiosk = (kiosk, token) => async (dispatch) => {
+	const { kioskId: id } = kiosk
+	const data = normalizeKioskPayload(kiosk)
+
+	const kioskData = await fetch(`${api_url}/v1/kiosk/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': token
+			},
+			body: JSON.stringify(data)
+		})
+		.then(response => response.json())
+		.catch(e => console.error(e))
+
+	dispatch(receiveKioskData(kiosk))
+
+	Router.push('/client')
+}
+
+export const fetchKioskToken = async (id, authToken) => {
 	const clientData = await fetch(`${api_url}/v1/kiosk/${id}/token`, {
 			method: 'GET',
 			headers: {
@@ -86,4 +111,4 @@ export const deleteKiosk = async (id, authToken) => {
 
 }
 
-export default ReduxComposeFactory({ pushKiosk, fetchKioskData }, getState)
+export default ReduxComposeFactory({ pushKiosk, updateKiosk, fetchKioskData }, getState)

@@ -88,8 +88,8 @@ class Index extends React.Component {
 
 	static getInitialProps({ req, store, auth }) {
 
-		console.log('state', store.getState());
-		console.log(auth);
+		//console.log('state', store.getState());
+		//console.log(auth);
 
 		return {}
 	}
