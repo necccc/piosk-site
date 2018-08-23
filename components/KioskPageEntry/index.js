@@ -5,11 +5,6 @@ import styles from './styles.scss'
 
 class KioskPageEntry extends React.Component {
 
-	onSubmit (e) {
-		console.log(e);
-
-	}
-
 	onChange(key, $elem) {
 		const value = $elem.target.value
 		const state = Object.assign({}, this.state)
@@ -31,8 +26,6 @@ class KioskPageEntry extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
-
 		const { index, id, url, time } = this.props
 
 		return <FormGroup legendText="" >

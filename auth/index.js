@@ -23,9 +23,6 @@ const authStore = (auth) => {
 }
 
 const getToken = async function (access_token) {
-
-console.log(access_token);
-
 	const tokenResponse = await fetch(`${api_url}/v1/token`, {
 		method: 'POST',
 		headers: {
@@ -35,8 +32,6 @@ console.log(access_token);
 		body: JSON.stringify({ token: access_token })
 	}).then(response => response.json())
 	.catch(e => ({ error: true, e }))
-
-	console.log('tokenResponse', tokenResponse);
 
 	if (tokenResponse.error) {
 		console.error(tokenResponse)
@@ -73,9 +68,9 @@ export const wrapWithAuth = (App) => {
 						initialProps.auth = auth
 						authStore(auth)
 						app.ctx.auth = auth
-						console.log('authenticate 2 - has token!');
+						//console.log('authenticate 2 - has token!');
 					} catch (e) {
-						console.log('authenticate 2 - TOKEN ERR');
+						//console.log('authenticate 2 - TOKEN ERR');
 					}
 				}
 			} else {
@@ -87,7 +82,7 @@ export const wrapWithAuth = (App) => {
 				initialProps = Object.assign(initialProps, await App.getInitialProps.call(App, app))
             }
 
-			console.log('authenticate 3 - initialProps', !!initialProps.auth);
+			//console.log('authenticate 3 - initialProps', !!initialProps.auth);
             return initialProps
 		}
 

@@ -11,10 +11,6 @@ import styles from './styles.scss'
 
 class Client extends React.Component {
 
-	onSubmit(e) {
-		console.log(e);
-	}
-
 	async onShowToken({id, name}) {
 		const { token } = this.props.auth
 		const kioskToken = await fetchToken(id, token)
@@ -28,8 +24,6 @@ class Client extends React.Component {
 	}
 
 	async onRemove({ id }) {
-		console.log('remove', id);
-		
 		const { token } = this.props.auth
 		this.props.removeKiosk(id, token)
 	}

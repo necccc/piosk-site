@@ -35,7 +35,7 @@ export const resetToken = (id, token) => async (dispatch) => {
 		.then(response => response.json())
 		.catch(e => console.error(e))
 
-	console.log(clientData);
+	//console.log(clientData);
 
 	const { jwt } = clientData
 

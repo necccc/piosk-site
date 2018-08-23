@@ -47,7 +47,11 @@ class Kiosk extends React.Component {
 	}
 
 	onSave() {
-		this.props.pushKiosk(this.state, this.props.auth.token)
+		if (this.props.editing) {
+			this.props.updateKiosk(this.state, this.props.auth.token)
+		} else {
+			this.props.pushKiosk(this.state, this.props.auth.token)
+		}
 	}
 
 	componentDidMount() {
@@ -55,6 +59,11 @@ class Kiosk extends React.Component {
 			name: this.props.name,
 			pages: this.props.pages
 		}
+
+		if (this.props.kioskId) {
+			state.kioskId = this.props.kioskId
+		}
+
 		this.setState(state)
 	}
 
@@ -89,7 +98,7 @@ class Kiosk extends React.Component {
 					id={`Page_${i + 1}`}
 					url={url}
 					time={time}
-					key={`PageEntry_${id}`}
+					key={`PageEntry_${i + 1}`}
 					index={i}
 					onUpdate={data => this.onPageUpdate(data)}
 					onRemove={id => this.removePageEntry(id)}
@@ -135,7 +144,10 @@ class Kiosk extends React.Component {
 
 		const kioskData = await fetchKioskData(getKioskUrlByID(kioskId), auth.token)
 
-		return { name: kioskData.name || '',
+		return {
+			kioskId,
+			editing: !!kioskData.name,
+			name: kioskData.name || '',
 			pages: kioskData.pages || []
 		}
 	}
