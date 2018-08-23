@@ -42,7 +42,9 @@ class Kiosk extends React.Component {
 	onPageUpdate(data) {
 		const pages = this.state.pages.slice()
 		const index = pages.findIndex(page => page.id === data.id)
+
 		pages[index] = data
+
 		this.setState({pages})
 	}
 
@@ -57,7 +59,7 @@ class Kiosk extends React.Component {
 	componentDidMount() {
 		const state = {
 			name: this.props.name,
-			pages: this.props.pages
+			pages: this.props.pages.map((page, i) => ({ id: `Page_${i + 1}`, ...page  }))
 		}
 
 		if (this.props.kioskId) {

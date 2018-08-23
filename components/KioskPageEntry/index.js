@@ -19,8 +19,8 @@ class KioskPageEntry extends React.Component {
 
 		const state = {
 			id: this.props.id,
-			url: '',
-			time: 30
+			url: this.props.url || '',
+			time: this.props.time || 30
 		}
 		this.setState(state)
 	}
